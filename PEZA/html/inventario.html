@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard | INVENTARIO</title>
+  <link rel="stylesheet" href="http://localhost/PEZA/CSS/inv_test.css">
+  <!-- Font Awesome Cdn Link -->
+  <style>
+    /* Estilos para centrar y ajustar el tamaño del cuadro de diálogo */
+    #editDialog {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50%;
+      background-color: white;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      z-index: 1000;
+    }
+
+    /* Estilos para el fondo oscuro */
+    #dialogOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
+
+    /* Estilo del formulario dentro del cuadro de diálogo */
+    #editForm label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    #editForm input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 12px;
+      box-sizing: border-box;
+    }
+
+    #editForm button {
+      padding: 8px 16px;
+      margin-right: 8px;
+    }
+
+    /* Estilos para el área de arrastrar y soltar */
+    #dropZone {
+      border: 2px dashed #ccc;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <nav>
+      <ul>
+        <li><a href="#" class="logo">
+          <img src="http://localhost/PEZA/imagenes/LogoPeza.png" alt="">
+          <span class="nav-item">DashBoard</span>
+        </a></li>
+        <li><a href="http://localhost/PEZA/html">
+          <i class="fas fa-home"></i>
+          <span class="nav-item">INICIO</span>
+        </a></li>
+        <li><a href="http://localhost/PEZA/html/clientes.html">
+          <i class="fas fa-user"></i>
+          <span class="nav-item">CLIENTES</span>
+        </a></li>
+        <li><a href="http://localhost/PEZA/html/inventario.html">
+          <i class="fas fa-wallet"></i>
+          <span class="nav-item">INVENTARIO</span>
+        </a></li>
+        <li><a href="">
+          <i class="fas fa-chart-bar"></i>
+          <span class="nav-item">GRÁFICAS</span>
+        </a></li>
+        <li><a href="">
+          <i class="fas fa-tasks"></i>
+          <span class="nav-item">TAREAS EN PROCESO</span>
+        </a></li>
+        <li><a href="">
+          <i class="fas fa-cog"></i>
+          <span class="nav-item">RESEÑAS</span>
+        </a></li>
+        <li><a href="http://localhost/peza/indexio.php">
+          <i class="fas fa-cog"></i>
+          <span class="nav-item">CERRAR SESION</span>
+        </a></li>
+      </ul>
+    </nav>
+    
+    <section class="main">
+      <div class="main-top">
+        <h1>INVENTARIO</h1>
+        <i class="fas fa-user-cog"></i>
+      </div>
+
+      <!-- BOTONES DE SELECCIÓN -->
+      <div class="buttons">
+        <button onclick="showContent('crud-bailarinas')">Bailarinas</button>
+        <button onclick="showContent('crud-rompedoras')">Rompedoras</button>
+        <button onclick="showContent('crud-plantas-de-luz')">Plantas de Luz</button>
+        <button onclick="showContent('crud-mas-productos')">Más Productos</button>
+      </div>
+
+      <!-- TABLAS CRUD -->
+      <div class="main-skills">
+        <table class="crud-table" id="crud-bailarinas">
+          <thead>
+            <tr>
+              <th>Nombre <button onclick="addRow('crud-bailarinas')">+</button></th>
+              <th>Descripción</th>
+              <th>Imagen</th>
+              <th>Mantenimientos</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Filas de datos -->
+            <tr>
+              <td>Compactadora tipo Bailarina</td>
+              <td>Compactadoras tipo bailarinas, también conocido como apisonador manual, están diseñadas para la compactación de suelos, bases y sub bases</td>
+              <td><img src="http://localhost/PEZA/Imagenes/Bailarina.png" alt="Bailarina A"></td>
+              <td>Martes 15 de enero</td>
+              <td>
+                <button onclick="editRow(this)">Editar</button>
+                <button onclick="deleteRow(this)">Eliminar</button>
+                <button onclick="downloadPDF(this)">Descargar PDF</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      
+        <table class="crud-table" id="crud-rompedoras">
+          <thead>
+            <tr>
+              <th>Nombre <button onclick="addRow('crud-rompedoras')">+</button></th>
+              <th>Descripción</th>
+              <th>Imagen</th>
+              <th>Mantenimientos</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Filas de datos -->
+            <tr>
+              <td>Rompedora A</td>
+              <td>Descripción Rompedora A</td>
+              <td><img src="ruta_de_la_imagen.jpg" alt="Rompedora A"></td>
+              <td></td>
+              <td>
+                <button onclick="editRow(this)">Editar</button>
+                <button onclick="deleteRow(this)">Eliminar</button>
+                <button onclick="downloadPDF(this)">Descargar PDF</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      
+        <table class="crud-table" id="crud-plantas-de-luz">
+          <thead>
+            <tr>
+              <th>Nombre <button onclick="addRow('crud-plantas-de-luz')">+</button></th>
+              <th>Descripción</th>
+              <th>Imagen</th>
+              <th>Mantenimientos</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Filas de datos -->
+            <tr>
+              <td>Planta de Luz A</td>
+              <td>Descripción Planta de Luz A</td>
+              <td><img src="ruta_de_la_imagen.jpg" alt="Planta de Luz A"></td>
+              <td></td>
+              <td>
+                <button onclick="editRow(this)">Editar</button>
+                <button onclick="deleteRow(this)">Eliminar</button>
+                <button onclick="downloadPDF(this)">Descargar PDF</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      
+        <table class="crud-table" id="crud-mas-productos">
+          <thead>
+            <tr class="tr_bailarinas">
+              <th>Nombre <button onclick="addRow('crud-mas-productos')">+</button></th>
+              <th>Descripción</th>
+              <th>Imagen</th>
+              <th>Mantenimientos</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Filas de datos -->
+            <tr>
+              <td>Producto A</td>
+              <td>Descripción Producto A</td>
+              <td><img src="ruta_de_la_imagen.jpg" alt="Producto A"></td>
+              <td></td>
+              <td>
+                <button onclick="editRow(this)">Editar</button>
+                <button onclick="deleteRow(this)">Eliminar</button>
+                <button onclick="downloadPDF(this)">Descargar PDF</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Fondo oscuro para el cuadro de diálogo -->
+    <div id="dialogOverlay" style="display:none;"></div>
+
+    <!-- Cuadro de diálogo para edición -->
+    <div id="editDialog" style="display:none;">
+      <h2>Editar</h2>
+      <form id="editForm">
+        <label for="editNombre">Nombre:</label>
+        <input type="text" id="editNombre" name="nombre" required>
+        <br>
+        <label for="editDescripcion">Descripción:</label>
+        <input type="text" id="editDescripcion" name="descripcion" required>
+        <br>
+        <label for="editDescripcion">Mantenimientos:</label>
+        <input type="text" id="editMantenimientos" name="Mantenimientos" required>
+        <br>
+        <label for="editImagen">Imagen:</label>
+        <div id="dropZone">Arrastra y suelta la imagen aquí o haz clic para seleccionar</div>
+        <input type="file" id="editImagen" name="imagen" style="display:none;" accept="image/*" required>
+        <br>
+          <!-- Sección para agregar ficha técnica (PDF) -->
+        <label for="editFichaTecnica">Agregar ficha técnica (PDF):</label>
+        <input type="file" id="editFichaTecnica" name="fichaTecnica" accept=".pdf">
+        <br>
+        <button type="submit">Guardar</button>
+        <button type="button" onclick="closeEditDialog()">Cancelar</button>
+      </form>
+    </div>
+
+    <script>
+      // Mostrar y ocultar tablas
+      function showContent(id) {
+        const tables = document.querySelectorAll('.crud-table');
+        tables.forEach(table => {
+          table.style.display = 'none';
+        });
+        document.getElementById(id).style.display = 'table';
+      }
+
+      // Función para abrir el cuadro de diálogo de edición
+      function editRow(button) {
+        const row = button.closest('tr');
+        const cells = row.querySelectorAll('td');
+        
+        document.getElementById('editNombre').value = cells[0].innerText;
+        document.getElementById('editDescripcion').value = cells[1].innerText;
+        document.getElementById('dropZone').innerText = 'Arrastra y suelta la imagen aquí o haz clic para seleccionar';
+        document.getElementById('editImagen').value = '';
+      
+        
+        document.getElementById('editForm').onsubmit = function(e) {
+          e.preventDefault();
+          saveEdit(row);
+        };
+        
+        document.getElementById('editDialog').style.display = 'block';
+        document.getElementById('dialogOverlay').style.display = 'block';
+      }
+
+      // Función para guardar los cambios de edición
+      function saveEdit(row) {
+        const cells = row.querySelectorAll('td');
+        
+        cells[0].innerText = document.getElementById('editNombre').value;
+        cells[1].innerText = document.getElementById('editDescripcion').value;
+        cells[3].innerText = document.getElementById('editMantenimientos').value;
+
+        const fileInput = document.getElementById('editImagen');
+        if (fileInput.files && fileInput.files[0]) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            cells[2].querySelector('img').src = e.target.result;
+          }
+          reader.readAsDataURL(fileInput.files[0]);
+        }
+        
+        closeEditDialog();
+      }
+
+      // Función para cerrar el cuadro de diálogo de edición
+      function closeEditDialog() {
+        document.getElementById('editDialog').style.display = 'none';
+        document.getElementById('dialogOverlay').style.display = 'none';
+      }
+
+      // Función para eliminar una fila
+      function deleteRow(button) {
+        const row = button.closest('tr');
+        row.remove();
+      }
+
+      //FUNCION DEL PDF DEBE DE IR AQUI!
+
+      // Función para agregar una fila nueva
+      function addRow(tableId) {
+        const table = document.getElementById(tableId).querySelector('tbody');
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+          <td contenteditable="true">Nuevo Producto</td>
+          <td contenteditable="true">Descripción del nuevo producto</td>
+          <td><img src="" alt="Nueva Imagen"></td>
+          <td contenteditable="true"></td>
+          <td>
+            <button onclick="editRow(this)">Editar</button>
+            <button onclick="deleteRow(this)">Eliminar</button>
+            <button onclick="downloadPDF(this)">Descargar PDF</button>
+          </td>
+        `;
+        table.appendChild(newRow);
+      }
+
+      // Manejo del área de arrastrar y soltar
+      const dropZone = document.getElementById('dropZone');
+      const fileInput = document.getElementById('editImagen');
+
+      dropZone.addEventListener('click', () => fileInput.click());
+
+      dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.style.borderColor = '#333';
+      });
+
+      dropZone.addEventListener('dragleave', () => {
+        dropZone.style.borderColor = '#ccc';
+      });
+
+      dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.style.borderColor = '#ccc';
+        fileInput.files = e.dataTransfer.files;
+        dropZone.innerText = fileInput.files[0].name;
+      });
+
+      fileInput.addEventListener('change', () => {
+        dropZone.innerText = fileInput.files[0].name;
+      });
+    </script>
+</body>
+</html>

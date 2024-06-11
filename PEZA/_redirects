@@ -1,0 +1,4 @@
+[[redirects]]
+  from = "/*"
+  to = "/indexio.php"
+  status = 200
